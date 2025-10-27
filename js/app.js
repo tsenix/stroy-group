@@ -114,4 +114,43 @@
         threshold: .4
     });
     sections.forEach((section => observer.observe(section)));
+    const slider = document.querySelector(".brands__body ._container");
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+    let isDragging = false;
+    slider.addEventListener("mousedown", (e => {
+        isDown = true;
+        isDragging = false;
+        slider.style.cursor = "grabbing";
+        startX = e.pageX - slider.offsetLeft;
+        scrollLeft = slider.scrollLeft;
+    }));
+    slider.addEventListener("mouseleave", (() => {
+        isDown = false;
+        slider.style.cursor = "grab";
+    }));
+    slider.addEventListener("mouseup", (() => {
+        isDown = false;
+        setTimeout((() => isDragging = false), 0);
+        slider.style.cursor = "grab";
+    }));
+    slider.addEventListener("mousemove", (e => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - slider.offsetLeft;
+        const walk = (x - startX) * 1.5;
+        if (Math.abs(walk) > 5) isDragging = true;
+        slider.scrollLeft = scrollLeft - walk;
+    }));
+    slider.addEventListener("click", (e => {
+        if (isDragging) e.preventDefault();
+    }));
+    slider.addEventListener("wheel", (e => {
+        if (e.shiftKey) return;
+        e.preventDefault();
+        slider.scrollLeft += e.deltaY;
+    }), {
+        passive: false
+    });
 })();

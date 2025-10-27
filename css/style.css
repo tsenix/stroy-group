@@ -656,7 +656,7 @@ html {
   align-items: center;
   justify-content: center;
   height: 72px;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 900;
   line-height: 24px;
   text-align: center;
@@ -737,11 +737,19 @@ html {
 .brands__body ._container {
   display: flex;
   overflow-x: auto;
+  cursor: -webkit-grab;
+  cursor: grab;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   scrollbar-width: none;
   -ms-overflow-style: none
 }
 .brands__body ._container::-webkit-scrollbar {
   display: none
+}
+.brands__body ._container * {
+  pointer-events: none
 }
 .brands__container {
   display: flex;
@@ -1065,5 +1073,10 @@ html {
   .service__item {
     flex: 0 0 calc(16.666% - 17.5px);
     width: calc(16.666% - 17.5px)
+  }
+}
+@media (min-width:389.99px) {
+  .service__item-title {
+    font-size: 20px
   }
 }
